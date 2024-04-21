@@ -32,12 +32,9 @@
     <div class="line"></div>
     
     @{
-        int price = 0;
+        int priceStatic = 0;
     }
-    @foreach (var item in Basket.Carts)
-    {
-        price += item.Price;
-    }
+    
     <div class="price">
         <p id="priceDisplay">0</p>
     </div>
@@ -55,26 +52,29 @@
                             <p id="counterDisplay">0</p>
                             <button onclick="decrementCounter()">-</button>
                             <script>
-                                let counter = 0;
-                                let price = 0;
+                                let counter = localStorage.getItem('counter') || 0;
+                                let price = @priceStatic;
                                 function incrementCounter() {
                                     counter++;
+                                    localStorage.setItem('counter', counter);
                                     price += @item.Price;
+                                    
                                     displayCounter();
                                 }
 
                                 function decrementCounter() {
                                     counter--;
+                                    localStorage.setItem('counter', counter);
                                     price -= @item.Price;
                                     if (price < 0){
                                     price = 0;
+                                    @*priceStatic = 0;*@
                                     }
                                     if (counter < 0){
                                     counter = 0;
                                     }
                                     displayCounter();
                                 }
-
                                 function displayCounter() {
                                     document.getElementById("counterDisplay").innerText = counter;
                                     document.getElementById("priceDisplay").innerText = price;

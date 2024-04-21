@@ -1,8 +1,12 @@
+using furShop.Components;
 using furShop.Models;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+// Add services to the container.
+/*builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();*/
 // Add services to the container.
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
@@ -36,5 +40,8 @@ app.MapRazorPages();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+/*app.UseAntiforgery();
 
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();*/
 app.Run();
