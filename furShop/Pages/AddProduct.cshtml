@@ -1,0 +1,38 @@
+﻿@page
+@model furShop.Pages.Catalog
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="Name" />
+        </div>
+        <div>
+            <label for="description">Описание:</label>
+            <textarea id="description" name="Description"></textarea>
+        </div>
+        <div>
+            <label for="price">Цена:</label>
+            <input type="text" id="price" name="Price" />
+        </div>
+        <div>
+            <label for="image">Изображение:</label>
+            <input type="file" id="image" name="Image" />
+        </div>
+        <button type="submit">Добавить товар</button>
+    </form>
+
+</div>
+</body>
+</html>
