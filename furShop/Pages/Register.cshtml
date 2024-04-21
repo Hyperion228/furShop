@@ -6,14 +6,33 @@
 }
 
 <!DOCTYPE html>
-
+<style></style>
 <html>
 <head>
-    <title></title>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="~/css/reg.css">
 </head>
 <body>
 <div>
-    
+    <header>
+        <h2><p><a href="/Login">Авторизоваться</a></p></h2>
+        <h2><p><a href="/Basket">Корзина</a></p></h2>
+        <h1>@Register.Message</h1>
+        <h2><p><a href="/Index">Главная</a></p></h2>
+        <h2><p><a href="/Catalog">Каталог</a></p></h2>
+    </header>
+    <div class="line"></div>
+    <div class="container">
+        <form method="post">
+            <p><label>Имя</label></p>
+            <p><input type="text" name="name"/></p>
+            <p><label>Логин</label></p>
+            <p><input type="text" name="login"/></p>
+            <p><label>Пароль</label></p>
+            <p><input type="password" name="password"/></p>
+            <input type="submit" value="Зарегистрироваться"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>

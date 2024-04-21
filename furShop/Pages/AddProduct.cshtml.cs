@@ -4,41 +4,56 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace furShop.Pages;
 
-public class Catalog : PageModel
+public class AddProduct : PageModel
 {
-    ApplicationContext context;
+    private readonly ApplicationContext _context;
+    private readonly IWebHostEnvironment _environment;
 
-    public Catalog(ApplicationContext context)
+    public AddProduct(ApplicationContext context, IWebHostEnvironment environment)
     {
-        context = context;
+        _context = context;
+        _environment = environment;
     }
-    public async Task<IActionResult> OnPostAsync(Furniture newItem, IFormFile image)
-    {
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
 
-        if (image != null && image.Length > 0)
+
+    public IFormFile ImageFile { get; set; }
+
+    public string Message { get; set; }
+
+    public IActionResult OnPost(string name, string description, int price)
+    {
+        if (ImageFile != null && ImageFile.Length > 0)
         {
-            var imagePath = "/images/" + Guid.NewGuid() + "_" + image.FileName;
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath);
-        
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+            var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await image.CopyToAsync(stream);
+                ImageFile.CopyTo(stream);
             }
 
-            newItem.ImagePath = imagePath;
+            Furniture newFurniture = new Furniture
+            {
+                Name = name,
+                Description = description,
+                Price = price,
+                ImagePath = fileName // Сохраняем имя файла, а не base64 строку
+            };
+
+            _context.Furnitures.Add(newFurniture);
+            _context.SaveChanges();
+
+            Message = "Товар добавлен";
+        }
+        else
+        {
+            Message = "Пожалуйста, добавьте фото";
         }
 
-        context.Furnitures.Add(newItem);
-        await context.SaveChangesAsync();
-
-        return RedirectToPage("./Index");
+        return Page();
     }
     public void OnGet()
     {
-        
+        Message = "";
     }
 }

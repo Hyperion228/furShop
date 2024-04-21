@@ -1,11 +1,13 @@
+using furShop.Models;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
-
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-   .AddNegotiate();
+    .AddNegotiate();
 
 builder.Services.AddAuthorization(options =>
 {
@@ -24,13 +26,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+
 
 app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.Run();

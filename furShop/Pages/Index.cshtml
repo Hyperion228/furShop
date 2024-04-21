@@ -9,11 +9,26 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="~/css/reg.css">
+    	<link rel="canonical" href="https://bootstrap-4.ru/docs/5.3/examples/headers/">
+    
+    	<!-- Bootstrap core CSS -->
+    <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <div>
-    
+     <header>
+         <h2><p><a href="/Login">Авторизоваться</a></p></h2>
+         <h2><p><a href="/Basket">Корзина</a></p></h2>
+            <h1>Мебельный магазин FurShop</h1>
+            @if (TempData["WelcomeMessage"] != null)
+            {
+                <p>@TempData["WelcomeMessage"]</p>
+            }
+         <h2><p><a href="/Register">Регистрация</a></p></h2>
+         <h2><p><a href="/Catalog">Каталог</a></p></h2>
+        </header>
 </div>
 </body>
 </html>

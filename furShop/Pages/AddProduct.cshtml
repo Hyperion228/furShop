@@ -1,5 +1,5 @@
 ﻿@page
-@model furShop.Pages.Catalog
+@model furShop.Pages.AddProduct
 
 @{
     Layout = null;
@@ -9,30 +9,32 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Добавить продукт</title>
+    <link rel="stylesheet" href="~/css/reg.css">
 </head>
 <body>
 <div>
-    <form method="post" enctype="multipart/form-data">
-        <div>
-            <label for="name">Название:</label>
-            <input type="text" id="name" name="Name" />
-        </div>
-        <div>
-            <label for="description">Описание:</label>
-            <textarea id="description" name="Description"></textarea>
-        </div>
-        <div>
-            <label for="price">Цена:</label>
-            <input type="text" id="price" name="Price" />
-        </div>
-        <div>
-            <label for="image">Изображение:</label>
-            <input type="file" id="image" name="Image" />
-        </div>
-        <button type="submit">Добавить товар</button>
-    </form>
-
+    <header>
+        <h2><p><a href="/Index">Главная страница</a></p></h2>
+        <h2><p><a href="/Basket">Корзина</a></p></h2>
+        <h2><p><a href="/Catalog">Каталог</a></p></h2>
+        <h2><p><a href="/Login">Авторизоваться</a></p></h2>
+    </header>
+    <div class="line"></div>
+    <div class="model">@Model.Message</div>
+    <div class="containerCatalog">
+        <form method="post" enctype="multipart/form-data">
+            <p><label>Название</label></p>
+            <p><input type="text" name="name"/></p>
+            <p><label>Описание</label></p>
+            <p><input type="text" name="description"/></p>
+            <p><label>Цена</label></p>
+            <p><input type="integer" name="price"/></p>
+            <p><label>Фото</label></p>
+            <p><input type="file" name="imageFile"/></p>
+            <input type="submit" value="Добавить"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>
